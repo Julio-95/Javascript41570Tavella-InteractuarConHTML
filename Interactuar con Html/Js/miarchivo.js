@@ -62,7 +62,7 @@ let automovil = [
 		<p>
 		<img style="width:100px;height:100px;" src="${cart[i].img}" />
 		</p>
-		<span style="cursor:pointer;" onclick="removeFromCart(${i});">-🚗</span>
+		<span style="cursor:pointer";saveToLocalStorage();"onclick="removeFromCart(${i});">-🚗</span>
 		</div>
 		`;
 	  }
@@ -86,4 +86,5 @@ let automovil = [
   renderAutomovil();
 
   console.log("productosAgregadosJSON")
+
 
