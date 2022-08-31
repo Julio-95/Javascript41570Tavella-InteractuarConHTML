@@ -1,3 +1,5 @@
+let cart = JSON.parse(localStorage.getItem("productosAgregadosJSON")) || [];
+
 let automovil = [
 	{ id: 0, name: 'Focus', price: 500000, category: 'Autos', brand: 'Ford', img: 'https://d171xgro1r36rb.cloudfront.net/1wRP95xW4ZIL0RGitI4UhdidoPrLZKEjO.jpg' },
 	{ id: 1, name: 'Fiesta', price: 600000, category: 'Autos', brand: 'Ford', img: 'https://img.remediosdigitales.com/13ecaf/ford-fiesta-st-edition-2021-05/840_560.jpeg' },
@@ -8,7 +10,6 @@ let automovil = [
   ];
   
   const automovilarray = [...automovil];
-  let cart = [];
   
   function setCategoryFilter(category) {
 	automovil = [...automovilarray];
@@ -18,13 +19,18 @@ let automovil = [
 	renderAutomovil();
   }
   
+  let saveToLocalStorage = () =>{
+    let storageJSON = JSON.stringify(cart);
+    localStorage.setItem("productosAgregadosJSON", storageJSON);
+}
+
   function renderAutomovil() {
 	let html = '';
 	for (let i = 0; i < automovil.length; i++) {
 	  html =
 		html +
 		`
-	  <div onclick="addToCart(${automovil[i].id});" style="border: 1px solid blue;margin: 10px;">
+	  <div onclick="addToCart(${automovil[i].id});saveToLocalStorage();" style="border: 1px solid blue;margin: 10px;">
 		<p>id: ${automovil[i].id}</p>
 		<p>nombre: ${automovil[i].name}</p>
 		<p>precio: ${automovil[i].price}</p>
@@ -68,12 +74,16 @@ let automovil = [
 	const foundAutomovil = automovil.find((item) => item.id == id);
 	cart.push(foundAutomovil);
 	renderCart();
+	saveToLocalStorage();
   }
   
   function removeFromCart(id) {
 	cart.splice(id, 1);
 	renderCart();
+	saveToLocalStorage();
   }
   
   renderAutomovil();
+
+  console.log("productosAgregadosJSON")
 
